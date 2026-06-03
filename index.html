@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Galina QA</title>
+
+        <link rel="stylesheet" href="style.css">
+        <style id="theme-style"></style>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </head>
+
+    <body>
+
+        <div class="lang-switch">
+            <button onclick="setLang('ru')" class="lang-btn" data-lang="ru">RU</button>
+            <button onclick="setLang('en')" class="lang-btn" data-lang="en">EN</button>
+            <div class="slider"></div>
+        </div>
+
+            <div class="progress-bar"></div>
+        <nav class="nav" aria-label="Main navigation">
+            <a href="#top" data-i18n="navHome">Home</a>
+            <a href="#about" data-i18n="navAbout">About</a>
+            <a href="#experience" data-i18n="navExp">Experience</a>
+            <a href="#certificates" data-i18n="navCerts">Certificates</a>
+            <a href="#contacts" data-i18n="navContacts">Contacts</a>
+        </nav>
+            <header class="hero" id="top">
+                <div class="hero-container">
+                    <div class="text fade-in">
+                        <h1 class="typing" data-i18n="heroTitle"></h1>
+                        <h2 data-i18n="heroRole">QA Engineer</h2>
+                        <p data-i18n="heroSubtitle">Web • API • Integration Testing</p>
+                        <div class="buttons">
+                            <a href="files/СV/Tatarinova G.A., QA.pdf" class="btn primary" data-i18n="downloadCV">Open CV</a>
+                            <a href="https://hh.ru/resume/7f76c28eff0e3420cc0039ed1f4f4c3736624f?from=share_ios" class="btn secondary" data-i18n="hh">HH Profile</a>
+                        </div>
+                    </div>
+                    <div class="photo fade-in delay">
+                        <div class="photo-wrapper"> 
+                            <div class="photo-glow"></div>
+                            <img 
+                                src="photo/image.png"
+                                alt="Galina QA"
+                                class="profile-photo"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+        <section class="section plain" id="about">
+            <div class="split-layout">
+                <div class="text-block">
+                    <h3 data-i18n="bringTitle">About me</h3>
+                    <p data-i18n="bringText">
+                        I specialize in product quality assurance through structured test design, defect analysis, and close collaboration with development, analytics, and design teams. 
+                        I have experience testing complex backend tasks, analyzing logs, and writing test documentation. 
+                        I pay strong attention to detail when analyzing defects and work with APIs. 
+                        I conduct integration testing with banking products, government services, and marketplaces.
+                    </p>
+
+                    <div class="skills-marquee">
+                        <div class="skills-track">
+                            <div class="skill-chip">
+                                <i class="devicon-mysql-plain "></i>
+                                SQL
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-postgresql-plain"></i>
+                                PostgreSQL
+                            </div>
+                            <div class="skill-chip">
+                                <img src="icons/dbeaver.svg" alt="">
+                                DBeaver
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-postman-plain "></i>
+                                Postman
+                            </div>
+                            <div class="skill-chip">
+                                <img src="icons/camunda.svg" alt="">
+                                Camunda
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-swagger-plain "></i>
+                                Swagger
+                            </div>
+                            <div class="skill-chip">
+                                <img src="icons/graylog.svg" alt="">
+                                Graylog
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-xcode-plain "></i>
+                                Xcode
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-androidstudio-plain "></i>
+                                Android Studio
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-json-plain"></i>
+                                JSON
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-python-plain "></i>
+                                Python
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-javascript-plain"></i>
+                                JavaScript
+                            </div>
+                            <div class="skill-chip">
+                                <img src="icons/css.svg" alt="">
+                                CSS
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-html5-plain"></i>
+                                HTML
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-linux-plain"></i>
+                                Linux
+                            </div>
+                            <div class="skill-chip">
+                                <img src="icons/macos.svg" alt="">
+                                MacOS
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-figma-plain"></i>
+                                Figma
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-jira-plain "></i>
+                                Jira
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-confluence-plain "></i>
+                                Confluence
+                            </div>
+
+                            <div class="skill-chip">
+                                <i class="devicon-mysql-plain "></i>
+                                SQL
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-postgresql-plain"></i>
+                                PostgreSQL
+                            </div>
+                            <div class="skill-chip">
+                                <img src="icons/dbeaver.svg" alt="">
+                                DBeaver
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-postman-plain "></i>
+                                Postman
+                            </div>
+                            <div class="skill-chip">
+                                <img src="icons/camunda.svg" alt="">
+                                Camunda
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-swagger-plain "></i>
+                                Swagger
+                            </div>
+                            <div class="skill-chip">
+                                <img src="icons/graylog.svg" alt="">
+                                Graylog
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-xcode-plain "></i>
+                                Xcode
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-androidstudio-plain "></i>
+                                Android Studio
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-json-plain"></i>
+                                JSON
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-python-plain "></i>
+                                Python
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-javascript-plain"></i>
+                                JavaScript
+                            </div>
+                            <div class="skill-chip">
+                                <img src="icons/css.svg" alt="">
+                                CSS
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-htmx-plain"></i>
+                                HTML
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-linux-plain"></i>
+                                Linux
+                            </div>
+                            <div class="skill-chip">
+                                <img src="icons/macos.svg" alt="">
+                                MacOS
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-figma-plain"></i>
+                                Figma
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-jira-plain "></i>
+                                Jira
+                            </div>
+                            <div class="skill-chip">
+                                <i class="devicon-confluence-plain "></i>
+                                Confluence
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <div class="qa-manifesto">
+                    <h3 data-i18n="qaManifesto"></h3>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="qa-grid">
+                <div class="qa-feature-card">
+                    <div class="feature-icon">🐞</div>
+                    <h4 data-i18n="feature1Title"></h4>
+                    <p data-i18n="feature1Text"></p>
+                </div>
+                <div class="qa-feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h4 data-i18n="feature2Title"></h4>
+                    <p data-i18n="feature2Text"></p>
+                </div>
+                <div class="qa-feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h4 data-i18n="feature3Title"></h4>
+                    <p data-i18n="feature3Text"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section card-section" id="experience">
+            <h3 data-i18n="expTitle">Experience</h3>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-date" data-i18n="timelinedate">
+                            2025 — Present
+                        </span>
+                        <h4 data-i18n="company1">
+                            Russian Export Center
+                        </h4>
+                        <p class="timeline-role" data-i18n="role1">
+                            QA Engineer
+                        </p>
+                        <p data-i18n="exp1desc">Web, API testing, Swagger, Postman, SQL, Camunda, Graylog, Figma, Pixso, Jira, Confluence</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <span class="timeline-date">
+                        2023 — 2024
+                    </span>
+                    <h4 data-i18n="company2"></h4>
+                    <p class="timeline-role" data-i18n="role2"></p>
+                    <p data-i18n="exp2desc"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section card-section" id="certificates">
+            <h3 data-i18n="certTitle">Certificates</h3>
+            <div class="certificate">
+            <div class="cert-top">
+                <div class="cert-title">
+                    VK Digital Camp
+                </div>
+                <div class="cert-arrow">
+                    ⌄
+                </div>
+            </div>
+            <div class="cert-body">
+                <p data-i18n="certificate">
+                    Practical course in manual testing:
+                    Web, API, and mobile testing. Improving bug localization skills using Postman.
+                    Writing complete usability testing scenarios, conducting tests, and analyzing results.
+                    Participation in workshops, fast-paced teamwork, and planning.
+                </p>
+
+                <div class="cert-tags">
+                    <span>QA</span>
+                    <span>API</span>
+                    <span>Postman</span>
+                    <span>Charles</span>
+                    <span>Xcode</span>
+                    <span>Android Studio</span>
+                    <span>UI/UX</span>
+                </div>
+                    <a href="files/vk-test.pdf"
+                    target="_blank"
+                    class="btn secondary"
+                    data-i18n="OpenCert">
+                        Open Certificate
+                    </a>
+                </div>
+            </div>
+            <div class="certificate">
+                <div class="cert-top">
+                    <div class="cert-title">
+                        Python
+                    </div>
+                    <div class="cert-arrow">
+                        ⌄
+                    </div>
+                </div>
+                <div class="cert-body">
+                    <p data-i18n="certificate2">
+                        Practical work with APIs at the language level: JSON structures, HTTP methods, status codes, request parameters, authorization mechanisms, as well as variables, data structures, functions, and modules.
+                        In-depth work with backend application logic. 
+                        Study of complex structures and application performance optimization.
+                    </p>
+                    <div class="cert-tags">
+                        <span>Python</span>
+                        <span>API Testing</span>
+                        <span>REST API</span>
+                        <span>JSON</span>
+                        <span>Backend Testing</span>
+                        <span>Automation</span>
+                    </div>
+                    <a href="files/vk-python.pdf"
+                    target="_blank"
+                    class="btn secondary"
+                    data-i18n="OpenCert">
+                        Open Certificate
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section card-section" id="contacts">
+            <div class="contact-layout">
+                <div class="contact-info">
+                    <h2 class="contact-heading" data-i18n="contactHeading">
+                        Let's build
+                        <br>
+                        something
+                        <br>
+                        great together.
+                    </h2>
+                    <p class="contact-text" data-i18n="contactText">
+                        Open to QA opportunities, collaborations and
+                        interesting projects.
+                    </p>
+                    <div class="contact-links">
+                        <p>Email: your@email.com</p>
+                        <p>Telegram: @yourname</p>
+                        <p>
+                            GitHub:
+                            <a href="https://github.com/Galina271">
+                                Galina271
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <form id="contact-form">
+                    <input
+                        type="text"
+                        name="company"
+                        data-i18n-placeholder="contactName"
+                        placeholder="Your name">
+
+                    <input
+                        type="email"
+                        name="email"
+                        data-i18n-placeholder="contactEmail"
+                        placeholder="Email">
+
+                    <textarea
+                        name="message"    
+                        data-i18n-placeholder="contactMessage"
+                        placeholder="Tell me about your project"></textarea>
+                    <button
+                        type="submit"
+                        class="btn primary full"
+                        data-i18n="contactButton">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+        <script src="script.js"></script>
+
+        <div class="bg-orb orb-1"></div>
+        <div class="bg-orb orb-2"></div>
+        <div class="bg-orb orb-3"></div>
+    </body>
+</html>
