@@ -28,6 +28,7 @@
         <nav class="nav" aria-label="Main navigation">
             <a href="#top" data-i18n="navHome">Home</a>
             <a href="#about" data-i18n="navAbout">About</a>
+            <a href="#playground" data-i18n="navPlayground">API</a>
             <a href="#experience" data-i18n="navExp">Experience</a>
             <a href="#certificates" data-i18n="navCerts">Certificates</a>
             <a href="#contacts" data-i18n="navContacts">Contacts</a>
@@ -78,7 +79,7 @@
                                 PostgreSQL
                             </div>
                             <div class="skill-chip">
-                                <img src="icons/dbeaver.svg" alt="">
+<img src="icons/dbeaver.svg" alt="">
                                 DBeaver
                             </div>
                             <div class="skill-chip">
@@ -162,7 +163,7 @@
                                 <i class="devicon-postman-plain "></i>
                                 Postman
                             </div>
-                            <div class="skill-chip">
+<div class="skill-chip">
                                 <img src="icons/camunda.svg" alt="">
                                 Camunda
                             </div>
@@ -234,25 +235,82 @@
         <section class="section">
             <div class="qa-grid">
                 <div class="qa-feature-card">
-                    <div class="feature-icon">🐞</div>
+                    <div class="feature-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
                     <h4 data-i18n="feature1Title"></h4>
                     <p data-i18n="feature1Text"></p>
                 </div>
                 <div class="qa-feature-card">
-                    <div class="feature-icon">🔌</div>
+                    <div class="feature-icon"><i class="fa-solid fa-right-left"></i></div>
                     <h4 data-i18n="feature2Title"></h4>
                     <p data-i18n="feature2Text"></p>
                 </div>
                 <div class="qa-feature-card">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon"><i class="fa-solid fa-terminal"></i></div>
                     <h4 data-i18n="feature3Title"></h4>
                     <p data-i18n="feature3Text"></p>
                 </div>
             </div>
         </section>
 
+        <section class="section metrics-section">
+            <div class="metrics-head">
+                <span class="metrics-eyebrow" data-i18n="metricsEyebrow">RESULTS</span>
+                <h3 data-i18n="metricsTitle">By the numbers</h3>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-number" data-target="50" data-suffix="+">50+</span>
+                    <span class="metric-label" data-i18n="metric1Label">bugs documented</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-number" data-target="500" data-suffix="+">500+</span>
+                    <span class="metric-label" data-i18n="metric2Label">test cases written</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-number" data-target="150" data-suffix="+">150+</span>
+                    <span class="metric-label" data-i18n="metric3Label">API methods tested</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-number" data-target="5" data-suffix="+">5+</span>
+                    <span class="metric-label" data-i18n="metric4Label">integrations tested</span>
+                </div>
+            </div>
+        </section>
+        <section class="section pg-section" id="playground">
+            <div class="pg-head">
+                <span class="pg-eyebrow" data-i18n="pgEyebrow">LIVE · REAL REQUESTS</span>
+                <h3 data-i18n="playgroundTitle">Live API test suite</h3>
+                <p class="pg-sub" data-i18n="playgroundSubtitle">Not just pinging a URL — a tiny automated test suite hitting a real API.</p>
+            </div>
+
+            <div class="pg-console">
+                <div class="pg-suite">
+                    <div class="pg-suite-head">
+                        <span class="pg-suite-title" data-i18n="pgSuiteTitle">Test suite</span>
+                        <button class="pg-runall btn primary" id="pg-run-all" data-i18n="pgRunAll">Run all</button>
+                    </div>
+                    <div class="pg-tests" id="pg-tests"></div>
+                    <div class="pg-summary" id="pg-summary" hidden></div>
+                </div>
+
+                <div class="pg-detail">
+                    <div class="pg-req-line">
+                        <span class="pg-method" id="pg-method" data-m="GET">GET</span>
+                        <span class="pg-url" id="pg-url"></span>
+                    </div>
+                    <div class="pg-status-row" id="pg-status-row" hidden>
+                        <span class="pg-status" id="pg-status"></span>
+                        <span class="pg-time" id="pg-time"></span>
+                    </div>
+                    <div class="pg-asserts" id="pg-asserts"></div>
+                    <pre class="pg-body" id="pg-body">// ...</pre>
+                </div>
+            </div>
+        </section>
+
         <section class="section card-section" id="experience">
-            <h3 data-i18n="expTitle">Experience</h3>
+            <h3
+data-i18n="expTitle">Experience</h3>
             <div class="timeline">
                 <div class="timeline-item left">
                     <div class="timeline-dot"></div>
@@ -346,7 +404,7 @@
                     <a href="files/vk-python.pdf"
                     target="_blank"
                     class="btn secondary"
-                    data-i18n="OpenCert">
+data-i18n="OpenCert">
                         Open Certificate
                     </a>
                 </div>

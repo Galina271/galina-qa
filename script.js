@@ -1,17 +1,40 @@
-const elements = document.querySelectorAll(".hero, .section, .card, .photo-box, .text, .tags span");
-elements.forEach((el, index) => {
-    el.classList.add("hidden");
+const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    el.style.transitionDelay = `${index * 80}ms`;
+const elements = document.querySelectorAll(".hero, .section, .card, .photo-box, .text, .tags span");
+elements.forEach((el) => {
+    el.classList.add("reveal");
+    if (!prefersReduced) {
+        el.classList.add("hidden");
+    }
 });
 
+let revealLastY = window.scrollY;
+let revealDir = "down";
+window.addEventListener("scroll", () => {
+    const y = window.scrollY;
+    revealDir = y >= revealLastY ? "down" : "up";
+    revealLastY = y;
+}, { passive: true });
+
 const observer = new IntersectionObserver((entries) => {
+    if (prefersReduced) {
+        entries.forEach(entry => entry.target.classList.add("show"));
+        return;
+    }
     entries.forEach(entry => {
         if (entry.isIntersecting) {
+            entry.target.classList.remove("from-top");
             entry.target.classList.add("show");
+        } else {
+            entry.target.classList.remove("show");
+            if (entry.boundingClientRect.top > 0) {
+                entry.target.classList.add("from-top");
+            } else {
+                entry.target.classList.remove("from-top");
+            }
         }
     });
-}, { threshold: 0.12, rootMargin: "0px 0px -50px 0px" });
+}, { threshold: 0.12, rootMargin: "0px 0px -60px 0px" });
 
 elements.forEach(el => {
     observer.observe(el);
@@ -59,7 +82,7 @@ function typeWriter(text) {
     function typing() {
         if (i < text.length) {
             typingElement.textContent += text.charAt(i);
-            i++;
+i++;
             typingTimeout = setTimeout(typing, 100);
         } else {
             typingElement.style.borderRight = "none";
@@ -191,8 +214,7 @@ const translations = {
         heroSubtitle: "Web • API • Интеграционное тестирование",
 
         heroRole: "QA инженер",
-
-        navHome: "Главная",
+navHome: "Главная",
         navAbout: "Обо мне",
         navExp: "Опыт",
         navCerts: "Сертификаты",
@@ -239,6 +261,36 @@ const translations = {
 
         feature3Title: "Анализ логов",
         feature3Text: "Работа с Graylog, мониторинг и локализация проблем на стороне backend.",
+
+        navPlayground: "API",
+
+        metricsEyebrow: "РЕЗУЛЬТАТЫ",
+        metricsTitle: "В цифрах",
+        metric1Label: "багов задокументировано",
+        metric2Label: "тест-кейсов написано",
+        metric3Label: "API-методов проверено",
+        metric4Label: "интеграций протестировано",
+
+        pgEyebrow: "LIVE · РЕАЛЬНЫЕ ЗАПРОСЫ",
+        playgroundTitle: "Живой набор API-тестов",
+        playgroundSubtitle: "Это не «дёрнуть URL», а мини-набор автотестов: реальные запросы к публичному API, позитивные и негативный сценарии, и проверка не только статус-кода, но и содержимого ответа. Нажми «Запустить всё».",
+        pgSuiteTitle: "Набор тестов",
+        pgRunAll: "Запустить всё",
+        pgRunning: "Выполняю…",
+        pgIdle: "// Выбери тест слева или нажми «Запустить всё»",
+        pgPass: "PASS",
+        pgFail: "FAIL",
+        pgNetwork: "API временно недоступна — проверь соединение",
+        pgSummaryLabel: "Пройдено",
+        chkStatus: "Статус-код",
+        chkField: "Поле в ответе",
+        chkListNotEmpty: "Список товаров не пустой",
+        chkEcho: "Отправленное название вернулось в ответе",
+        chkErrMsg: "Есть сообщение об ошибке",
+        pgTest1: "Товар возвращается по ID",
+        pgTest2: "Поиск находит товары",
+        pgTest3: "Создание товара (POST)",
+        pgTest4: "Несуществующий товар → 404",
     },
 
     en:{
@@ -328,6 +380,36 @@ const translations = {
 
         feature3Title: "Log Analysis",
         feature3Text: "Graylog analysis, monitoring, and backend issue localization.",
+
+        navPlayground: "API",
+
+        metricsEyebrow: "RESULTS",
+        metricsTitle: "By the numbers",
+        metric1Label: "bugs documented",
+        metric2Label: "test cases written",
+        metric3Label: "API methods tested",
+        metric4Label: "integrations tested",
+
+        pgEyebrow: "LIVE · REAL REQUESTS",
+        playgroundTitle: "Live API test suite",
+        playgroundSubtitle: "Not just pinging a URL — a tiny automated test suite: real requests to a public API, positive and negative cases, asserting both the status code and the response body. Hit Run all.",
+        pgSuiteTitle: "Test suite",
+        pgRunAll: "Run all",
+        pgRunning: "Running…",
+        pgIdle: "// Pick a test on the left or hit Run all",
+        pgPass: "PASS",
+        pgFail: "FAIL",
+        pgNetwork: "API temporarily unavailable — check the connection",
+        pgSummaryLabel: "Passed",
+        chkStatus: "Status code",
+        chkField: "Field in response",
+        chkListNotEmpty: "Products list is not empty",
+        chkEcho: "Sent title is returned in the response",
+        chkErrMsg: "Error message is present",
+        pgTest1: "Product is returned by ID",
+        pgTest2: "Search returns products",
+        pgTest3: "Create a product (POST)",
+        pgTest4: "Missing product → 404",
     }    
 };
 
@@ -352,6 +434,11 @@ function setLang(lang) {
     langSwitch.setAttribute('data-lang', lang);
     typeWriter(translationsLang.heroTitle);
     localStorage.setItem("lang", lang);
+
+    if (window.__pgReady) {
+        renderPgList(lang);
+        renderPgDetail(lang);
+    }
 }
 
 const savedLang = localStorage.getItem("lang") || "en";
@@ -375,3 +462,325 @@ certificates.forEach(cert => {
     });
 
 });
+function animateCounter(el) {
+    const target = parseFloat(el.dataset.target) || 0;
+    const suffix = el.dataset.suffix || "";
+    const duration = 1600;
+    const startTime = performance.now();
+
+    function tick(now) {
+        const p = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (p < 1) {
+            requestAnimationFrame(tick);
+        } else {
+            el.textContent = target + suffix;
+        }
+    }
+    requestAnimationFrame(tick);
+}
+
+const metricNumbers = document.querySelectorAll(".metric-number");
+metricNumbers.forEach(el => {
+    el.textContent = "0" + (el.dataset.suffix || "");
+});
+
+const metricObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.done) {
+            entry.target.dataset.done = "1";
+            animateCounter(entry.target);
+        }
+    });
+}, { threshold: 0.4 });
+
+metricNumbers.forEach(el => metricObserver.observe(el));
+const API = "https://dummyjson.com";
+
+const pgSuite = [
+    {
+        nameKey: "pgTest1",
+        method: "GET",
+        url: API + "/products/1",
+        checks: (s, b) => [
+            { kind: "status", arg: 200, pass: s === 200 },
+            { kind: "field", arg: "id", pass: !!b && b.id === 1 },
+            { kind: "field", arg: "title", pass: !!b && typeof b.title === "string" && b.title.length > 0 },
+            { kind: "gt0", arg: "price", pass: !!b && b.price > 0 }
+        ]
+    },
+    {
+        nameKey: "pgTest2",
+        method: "GET",
+        url: API + "/products/search?q=phone",
+        checks: (s, b) => [
+            { kind: "status", arg: 200, pass: s === 200 },
+            { kind: "listNotEmpty", pass: !!b && Array.isArray(b.products) && b.products.length > 0 }
+        ]
+    },
+    {
+        nameKey: "pgTest3",
+        method: "POST",
+        url: API + "/products/add",
+        body: { title: "QA Test Product" },
+        checks: (s, b) => [
+            { kind: "status2xx", pass: s >= 200 && s < 300 },
+            { kind: "echo", pass: !!b && b.title === "QA Test Product" },
+            { kind: "field", arg: "id", pass: !!b && typeof b.id === "number" }
+        ]
+    },
+    {
+        nameKey: "pgTest4",
+        method: "GET",
+        url: API + "/products/9999",
+        negative: true,
+        checks: (s, b) => [
+            { kind: "status", arg: 404, pass: s === 404 },
+            { kind: "errMsg", pass: !!b && !!b.message }
+        ]
+    }
+];
+
+let pgActive = 0;
+const pgResults = {};
+
+const pgTestsEl   = document.getElementById("pg-tests");
+const pgRunAllEl  = document.getElementById("pg-run-all");
+const pgSummaryEl = document.getElementById("pg-summary");
+const pgMethodEl  = document.getElementById("pg-method");
+const pgUrlEl     = document.getElementById("pg-url");
+const pgStatusRow = document.getElementById("pg-status-row");
+const pgStatusEl  = document.getElementById("pg-status");
+const pgTimeEl    = document.getElementById("pg-time");
+const pgAssertsEl = document.getElementById("pg-asserts");
+const pgBodyEl    = document.getElementById("pg-body");
+
+const STATUS_TEXT = {
+    200: "OK", 201: "Created", 204: "No Content",
+    400: "Bad Request", 401: "Unauthorized", 403: "Forbidden",
+    404: "Not Found", 500: "Internal Server Error"
+};
+
+function statusClass(code) {
+    if (code >= 200 && code < 300) return "ok";
+    if (code >= 300 && code < 400) return "warn";
+    return "err";
+}
+
+function checkLabel(c, t) {
+    switch (c.kind) {
+        case "status":       return `${t.chkStatus} = ${c.arg}`;
+        case "status2xx":    return `${t.chkStatus} 2xx`;
+        case "field":        return `${t.chkField}: ${c.arg}`;
+        case "gt0":          return `${c.arg} > 0`;
+        case "listNotEmpty": return t.chkListNotEmpty;
+        case "echo":         return t.chkEcho;
+        case "errMsg":       return t.chkErrMsg;
+        default:             return c.kind;
+    }
+}
+
+function stateIcon(state) {
+    if (state === "pass") return "✓";
+    if (state === "fail") return "✗";
+    if (state === "net")  return "!";
+    if (state === "run")  return "◌";
+    return "•";
+}
+
+function renderPgList(lang) {
+    if (!pgTestsEl) return;
+    const t = translations[lang] || translations.en;
+    pgTestsEl.innerHTML = "";
+    pgSuite.forEach((test, i) => {
+        const res = pgResults[i];
+        const state = res ? res.state : "idle";
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "pg-test " + state + (i === pgActive ? " active" : "");
+        btn.innerHTML =
+            `<span class="pg-test-ico">${stateIcon(state)}</span>` +
+            `<span class="pg-test-main">` +
+                `<span class="pg-test-name">${t[test.nameKey] || test.nameKey}</span>` +
+                `<span class="pg-test-ep"><span class="m">${test.method}</span> ${test.url.replace(API, "")}</span>` +
+            `</span>`;
+        btn.addEventListener("click", () => {
+            pgActive = i;
+            renderPgList(getCurrentLang());
+            runTest(i);
+        });
+        pgTestsEl.appendChild(btn);
+    });
+}
+
+function renderPgDetail(lang) {
+    const t = translations[lang] || translations.en;
+    const test = pgSuite[pgActive];
+    if (pgMethodEl) {
+        pgMethodEl.textContent = test.method;
+        pgMethodEl.setAttribute("data-m", test.method);
+    }
+    if (pgUrlEl) pgUrlEl.textContent = test.url;
+
+    const res = pgResults[pgActive];
+    if (!res || res.state === "run") {
+        pgStatusRow.hidden = true;
+        pgAssertsEl.innerHTML = "";
+        pgBodyEl.textContent = t.pgIdle;
+        return;
+    }
+
+    if (res.state === "net") {
+        pgStatusRow.hidden = true;
+        pgAssertsEl.innerHTML = "";
+        pgBodyEl.textContent = t.pgNetwork;
+        return;
+    }
+
+    pgStatusEl.className = "pg-status " + statusClass(res.status);
+    const stext = STATUS_TEXT[res.status] || "";
+    pgStatusEl.textContent = res.status + (stext ? " " + stext : "");
+    pgTimeEl.textContent = res.ms + " ms";
+    pgStatusRow.hidden = false;
+
+    pgAssertsEl.innerHTML = "";
+    res.checks.forEach(c => {
+        const row = document.createElement("div");
+        row.className = "pg-assert-item " + (c.pass ? "pass" : "fail");
+        row.innerHTML =
+            `<span class="tick">${c.pass ? "✓" : "✗"}</span>` +
+            `<span>${checkLabel(c, t)}</span>`;
+        pgAssertsEl.appendChild(row);
+    });
+
+    pgBodyEl.textContent = res.body;
+}
+
+async function runTest(i) {
+    const test = pgSuite[i];
+    const lang = getCurrentLang();
+
+    pgResults[i] = { state: "run" };
+    renderPgList(lang);
+    if (i === pgActive) renderPgDetail(lang);
+
+    const t0 = performance.now();
+    try {
+        const opts = { method: test.method, headers: {} };
+        if (test.body) {
+            opts.headers["Content-Type"] = "application/json";
+            opts.body = JSON.stringify(test.body);
+        }
+        const res = await fetch(test.url, opts);
+        const ms = Math.round(performance.now() - t0);
+
+        let data = null;
+        let bodyText = "";
+        try {
+            data = await res.json();
+            bodyText = JSON.stringify(data, null, 2);
+        } catch (e) {
+            bodyText = "{ }";
+        }
+
+        const checks = test.checks(res.status, data);
+        const allPass = checks.every(c => c.pass);
+
+        pgResults[i] = {
+            state: allPass ? "pass" : "fail",
+            status: res.status,
+            ms: ms,
+            checks: checks,
+            body: bodyText
+        };
+    } catch (err) {
+        pgResults[i] = { state: "net" };
+    }
+
+    renderPgList(getCurrentLang());
+    if (i === pgActive) renderPgDetail(getCurrentLang());
+    return pgResults[i].state;
+}
+
+async function runAll() {
+    const lang = getCurrentLang();
+    const t = translations[lang] || translations.en;
+    pgRunAllEl.disabled = true;
+    pgRunAllEl.textContent = t.pgRunning;
+    pgSummaryEl.hidden = true;
+
+    let passed = 0;
+    let counted = 0;
+    for (let i = 0; i < pgSuite.length; i++) {
+        pgActive = i;
+        const state = await runTest(i);
+        if (state === "pass") passed++;
+        if (state === "pass" || state === "fail") counted++;
+    }
+
+    pgRunAllEl.disabled = false;
+    pgRunAllEl.textContent = t.pgRunAll;
+
+    const total = counted || pgSuite.length;
+    pgSummaryEl.className = "pg-summary " + (passed === total ? "ok" : "bad");
+    pgSummaryEl.textContent = `${t.pgSummaryLabel}: ${passed}/${total}`;
+    pgSummaryEl.hidden = false;
+}
+
+if (pgTestsEl && pgRunAllEl) {
+    pgRunAllEl.addEventListener("click", runAll);
+    window.__pgReady = true;
+    renderPgList(getCurrentLang());
+    renderPgDetail(getCurrentLang());
+}
+
+if (!prefersReduced) {
+    const tiltCards = document.querySelectorAll(".qa-feature-card, .metric-card");
+    tiltCards.forEach(card => {
+        card.addEventListener("mouseenter", () => {
+            card.style.transition = "transform 0.08s ease-out";
+        });
+        card.addEventListener("mousemove", (e) => {
+            const r = card.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width - 0.5;
+            const py = (e.clientY - r.top) / r.height - 0.5;
+            const max = 9;
+            card.style.transform =
+                `perspective(900px) rotateX(${(-py * max).toFixed(2)}deg) ` +
+                `rotateY(${(px * max).toFixed(2)}deg) translateY(-6px)`;
+        });
+        card.addEventListener("mouseleave", () => {
+            card.style.transition = ""; 
+            card.style.transform = "";  
+        });
+    });
+}
+
+if (!prefersReduced) {
+    const orbEls = [
+        { el: document.querySelector(".orb-1"), depth: 26, speed: 0.10, phase: 0 },
+        { el: document.querySelector(".orb-2"), depth: 40, speed: 0.16, phase: 2 },
+        { el: document.querySelector(".orb-3"), depth: 18, speed: 0.07, phase: 4 }
+    ].filter(o => o.el);
+
+    orbEls.forEach(o => { o.el.style.animation = "none"; o.el.style.willChange = "transform"; });
+
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX / window.innerWidth - 0.5;
+        mouseY = e.clientY / window.innerHeight - 0.5;
+    }, { passive: true });
+
+    function orbLoop(now) {
+        const sc = window.scrollY;
+        orbEls.forEach(o => {
+            const floatY = Math.sin(now / 1000 + o.phase) * 22;
+            const x = mouseX * o.depth;
+            const y = mouseY * o.depth + floatY + sc * o.speed;
+            o.el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
+        });
+        requestAnimationFrame(orbLoop);
+    }
+    requestAnimationFrame(orbLoop);
+}
